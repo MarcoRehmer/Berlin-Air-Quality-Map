@@ -1,11 +1,22 @@
 from fastapi import APIRouter
 import httpx
+from core.constants import API_BASE_URL
 
 router = APIRouter()
 
 @router.get("/{station_id}")
-async def air_quality():
+async def air_quality(station_id):
     
-    r = httpx.get("https://luftdaten.umweltbundesamt.de/api/air-data/v4/stations/json?use=airquality&lang=de")
+    params = {
+        "date_from": "2025-01-01",
+        "time_from": 1,
+        "date_to": "2026-04-30",
+        "time_to": 23,
+        "station": station_id,
+        "component": 6,
+        "scope": 2,
+
+    }
+    r = httpx.get(f"{API_BASE_URL}/measures/json", params=params)
     print(r.json())
     return r.json()

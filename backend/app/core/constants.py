@@ -1,0 +1,1 @@
+API_BASE_URL = "https://luftdaten.umweltbundesamt.de/api/air-data/v4"
